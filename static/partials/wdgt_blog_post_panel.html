@@ -1,0 +1,108 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-10 col-sm-10 col-md-11">
+                <h4 class="panel-title" ng-show="!isNewPost()">
+                    {{blogPost.title}} by {{blogPost.author}} on {{blogPost.time | date:'MMM d, y h:mm a'}}
+                </h4>
+                <button type="button" class="btn btn-link" ng-click="onTitleButtonClicked()" ng-show="txtTitleButton">
+                    <i class="fa fa-file-o fa-lg"></i>
+                    {{txtTitleButton}}
+                </button>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-1 text-right" ng-show="!isNewPost()">
+                <button type="button"
+                        class="btn btn-link"
+                        data-loading-text="<i class='fa fa-spinner fa-spin'></i> loading"
+                        ng-click="onEditButtonClicked()"
+                        btn-loading="{{isLoading}}">
+                    <i class="fa fa-pencil-square-o fa-lg"></i> edit
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-collapse collapse">
+        <div class="panel-body">
+            <bs-alert ng-repeat="alert in alerts"
+                      type="alert.type" title="alert.title" message="alert.message" close="closeAlert($index)">
+            </bs-alert>
+            <form class="form-horizontal" name="blogPostForm" id="blogPostForm" role="form">
+                <div class="form-group"
+                     ng-class="{'has-warning has-feedback': isInputInvalid(blogPost.title)}">
+                    <label class="col-md-1 control-label" for="blogPostTitle">Title</label>
+
+                    <div class="col-md-11">
+                        <input type="text"
+                               id="blogPostTitle"
+                               name="blogPostTitle"
+                               class="form-control"
+                               placeholder="Enter title"
+                               ng-model="blogPost.title" required>
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"
+                          ng-show="isInputInvalid(blogPost.title)"></span>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-warning has-feedback': isInputInvalid(blogPost.content)}">
+                    <label class="col-md-1 control-label" for="blogPostContent">Content</label>
+
+                    <div class="col-md-11">
+                        <textarea rows="3"
+                                  id="blogPostContent"
+                                  name="blogPostContent"
+                                  class="form-control"
+                                  placeholder="Enter content"
+                                  ng-model="blogPost.content" required></textarea>
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"
+                          ng-show="isInputInvalid(blogPost.content)"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="blogPostAuthor">Author</label>
+
+                    <div class="col-md-1">
+                        <select id="blogPostAuthor"
+                                name="blogPostAuthor"
+                                class="form-control input-sm"
+                                ng-model="blogPost.author" required>
+                            <option>Max</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2" ng-show="!isNewPost()">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       ng-model="blogPost.updateTime"> Update time
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-11">
+                        <div class="form-inline">
+                            <button type="submit"
+                                    class="btn btn-info form-control"
+                                    data-loading-text="<i class='fa fa-spinner fa-spin'></i> Saving"
+                                    ng-disabled="blogPostForm.$invalid || !blogPostForm.$dirty"
+                                    ng-click="onSaveButtonClicked()"
+                                    btn-loading="{{isSaving}}">
+                                <i class="fa fa-floppy-o fa-lg"></i> Save
+                            </button>
+                            <button class="btn btn-danger btn-vert-stack form-control"
+                                    data-loading-text="<i class='fa fa-spinner fa-spin'></i> Deleting"
+                                    ng-click="onDeleteButtonClicked()"
+                                    btn-loading="{{isDeleting}}"
+                                    ng-show="!isNewPost()">
+                                <i class="fa fa-trash-o fa-lg"></i> Delete
+                            </button>
+                            <button class="btn btn-link btn-vert-stack form-control"
+                                    ng-click="onCancelButtonClicked()">Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

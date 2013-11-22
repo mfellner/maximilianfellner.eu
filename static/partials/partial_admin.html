@@ -1,0 +1,9 @@
+<login-modal></login-modal>
+
+<div ng-show="isAuthorized">
+    <h1>Administration</h1>
+    <blog-post-panel txt-title-button="'Create new blog post'"></blog-post-panel>
+    <div class="panel-group">
+        <blog-post-panel ng-repeat="blogPost in allBlogPosts" blog-post="blogPost"></blog-post-panel>
+    </div>
+</div>

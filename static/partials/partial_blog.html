@@ -1,0 +1,8 @@
+<ng-include src="'static/partials/partial_header.html'"></ng-include>
+
+<div id="main-row" class="row">
+    <main-nav></main-nav>
+    <div id="main-content" class="col-sm-10">
+        <blog-post ng-repeat="post in allBlogPosts"></blog-post>
+    </div>
+</div><!-- /main-row -->

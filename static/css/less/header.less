@@ -1,0 +1,51 @@
+@import "../vendor/bootstrap/less/bootstrap";
+@import "../vendor/font-awesome/less/font-awesome";
+@import "../vendor/font-awesome/src/assets/less/site/lazy";
+@import "variables";
+
+#header-row {
+  padding: 1em 0;
+}
+
+#header-logo img {
+  .center-block();
+  max-width: 10em;
+  @media (min-width: @screen-sm-min) {
+    max-width: 90%;
+  }
+}
+
+#header-title {
+  text-align: center;
+  padding-top: 5px;
+  @media (min-width: @screen-sm-min) {
+    text-align: left;
+    padding-top: 5px;
+  }
+  @media (min-width: @screen-md-min) {
+    padding-top: 15px;
+  }
+  @media (min-width: @screen-lg-min) {
+    padding-top: 30px;
+  }
+}
+
+#header-title h1 {
+  color: @brand-primary;
+  margin: 0;
+  padding: 0;
+  @media (min-width: @screen-sm-min) {
+    font-size: floor(@font-size-h1 * 1.4);
+    letter-spacing: 0.1em;
+  }
+}
+
+#header-title h2 {
+  color: @gray-darker;
+  margin: 10px 0 0 0;
+  padding: 0;
+  letter-spacing: 0.1em;
+  @media (min-width: @screen-sm-min) {
+    letter-spacing: 0.2em;
+  }
+}

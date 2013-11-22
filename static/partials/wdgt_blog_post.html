@@ -1,0 +1,10 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="blog-post-content-title">
+            {{post.title}} <small class="pull-right padding-top-sm">{{post.time | date:'MMM d, y'}} by {{post.author}}</small>
+        </h3>
+    </div>
+    <div class="panel-body blog-post-content" ng-bind-html="post.html">
+        Panel content
+    </div>
+</div>

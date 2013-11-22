@@ -1,0 +1,41 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Please sign in</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" name="loginForm">
+                    <div class="form-group" ng-class="{'has-error has-feedback': loginFailed && !loginForm.$dirty}">
+                        <label class="control-label" for="loginName">Username</label>
+                        <input type="text"
+                               class="form-control"
+                               id="loginName"
+                               placeholder="Enter username"
+                               ng-model="username" required>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                              ng-show="loginFailed && !loginForm.$dirty"></span>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error has-feedback': loginFailed && !loginForm.$dirty}">
+                        <label class="control-label" for="loginPassword">Password</label>
+                        <input type="password"
+                               class="form-control"
+                               id="loginPassword"
+                               placeholder="Password"
+                               ng-model="password" required>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                              ng-show="loginFailed && !loginForm.$dirty"></span>
+                    </div>
+                    <button type="submit"
+                            class="btn" ng-class="{'btn-danger': loginFailed && !loginForm.$dirty}"
+                            data-loading-text="<i class='fa fa-spinner fa-spin'></i> signing in"
+                            ng-disabled="loginForm.$invalid || !loginForm.$dirty"
+                            ng-click="onLoginButtonClicked()"
+                            btn-loading="{{isLoggingIn}}">
+                        <i class="fa fa-sign-in fa-lg"></i> Sign In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    {% assets "css_errors" %}
+    <link href="{{ ASSET_URL }}" rel="stylesheet" type="text/css">
+    {% endassets %}
+</head>
+<body>
+<div class="container">
+    <h1>{{ title }} <span>:(</span></h1>
+    {% block body %}{% endblock %}
+    <p><a href="/">Return to homepage.</a></p>
+</div>
+</body>
+</html>

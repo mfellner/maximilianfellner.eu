@@ -1,0 +1,42 @@
+@import "../vendor/bootstrap/less/bootstrap";
+@import "../vendor/font-awesome/less/font-awesome";
+@import "variables";
+
+@blog-heading-size-base: 22px;
+
+.blog-post-content-title {
+  margin: 0;
+}
+
+.blog-post-content h1,
+.blog-post-content h2,
+.blog-post-content h3,
+.blog-post-content h4,
+.blog-post-content h5,
+.blog-post-content h6 {
+  margin-top: 0;
+}
+
+.blog-post-content h1 {
+  font-size: @blog-heading-size-base;
+}
+
+.blog-post-content h2 {
+  font-size: floor(@blog-heading-size-base * 0.85);
+}
+
+.blog-post-content h3 {
+  font-size: floor(@blog-heading-size-base * 0.70);
+}
+
+.blog-post-content h4 {
+  font-size: floor(@blog-heading-size-base * 0.55);
+}
+
+.blog-post-content h5 {
+  font-size: floor(@blog-heading-size-base * 0.40);
+}
+
+.blog-post-content h6 {
+  font-size: floor(@blog-heading-size-base * 0.25);
+}
