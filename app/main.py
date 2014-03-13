@@ -2,16 +2,11 @@
 
 import re
 import time
-import fnmatch
-from os import path, pardir, walk, urandom
+from os import path, pardir, urandom
 
 from flask import Flask
-from flask.ext.assets import Bundle
-from flask.ext.assets import Environment
-from webassets.filter import register_filter
 
-from app.util import load_config
-from app.assets.rjs import RJS
+from app.assets import create_environment
 from app.shared.models import db
 from app.shared.api import shared_bp, get_root_index
 from app.blog.api import blog_bp
@@ -23,10 +18,6 @@ DATA_ROOT = path.join(APPLICATION_ROOT, 'data')
 STATIC_ROOT = path.join(APPLICATION_ROOT, 'static')
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + path.join(DATA_ROOT, 'main.db')
 SECRET_KEY = urandom(24)
-
-# Configuration for r.js webassets filter.
-RJS_BIN = path.join(STATIC_ROOT, 'js', 'vendor', 'r.js')
-RJS_EXTRA_ARGS = load_config(path.join(DATA_ROOT, 'r.js.conf'))
 
 
 def create_app(debug=False):
@@ -43,33 +34,8 @@ def create_app(debug=False):
 
     register_frontend_routes(app)
 
-    # Configure webassets.
-    assets = Environment(app)
-    register_filter(RJS)
-
-    css_layout = Bundle(path.join('css', 'less', 'layout.less'),
-                        output=path.join('css', 'layout.min.css'),
-                        filters='less, cssmin',
-                        depends=files(path.join(app.static_folder, 'css', 'less'), '*.less'))
-
-    css_errors = Bundle(path.join('css', 'less', 'errors.less'),
-                        output=path.join('css', 'errors.min.css'),
-                        filters='less, cssmin')
-
-    js_rjs = Bundle(path.join('js', 'build', 'main.js'),
-                    output=path.join('js', 'main.min.js'),
-                    filters='rjs',
-                    depends=files(path.join(app.static_folder, 'js', 'build'), '*.js'))
-
-    # Hack: enable cache by disabling dependencies in production (this is a webassets issue).
-    if not debug:
-        css_layout.depends = []
-        css_errors.depends = []
-        js_rjs.depends = []
-
-    assets.register('css_layout', css_layout)
-    assets.register('css_errors', css_errors)
-    assets.register('js_rjs', js_rjs)
+    # Configure webassets environment.
+    create_environment(app, debug, debug)
 
     # Initialize SQLAlchemy connection with the application.
     db.init_app(app)
@@ -98,12 +64,3 @@ def register_frontend_routes(app):
 def current_year():
     """Function for template context processor returning the current year."""
     return dict(current_year=time.strftime('%Y'))
-
-
-def files(directory, pattern):
-    """Yield files matching the pattern."""
-    result = []
-    for root, dirnames, filenames in walk(directory):
-        for filename in fnmatch.filter(filenames, pattern):
-            result += path.join(root, filename)
-    return result
