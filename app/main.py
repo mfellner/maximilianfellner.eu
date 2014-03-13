@@ -51,7 +51,7 @@ def register_frontend_routes(app):
     AngularJS frontend using Flask's pluggable views."""
     angular_routes = path.join(app.static_folder, 'js', 'build', 'app.js')
 
-    p = re.compile("\s+\$routeProvider\.when\('(/.+)'")
+    p = re.compile(r"\s+\$routeProvider\.when\('(/.+)'")
 
     with open(angular_routes) as f:
         for line in f:
