@@ -2,7 +2,7 @@
 
 import re
 import time
-from os import path, pardir, urandom
+from os import path, pardir
 
 from flask import Flask
 
@@ -11,13 +11,14 @@ from app.shared.models import db
 from app.shared.api import shared_bp, get_root_index
 from app.blog.api import blog_bp
 from app.admin.api import admin_bp
+from app.util import get_secret
 
 
 APPLICATION_ROOT = path.dirname(path.abspath(path.join(__file__, pardir)))
 DATA_ROOT = path.join(APPLICATION_ROOT, 'data')
 STATIC_ROOT = path.join(APPLICATION_ROOT, 'static')
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + path.join(DATA_ROOT, 'main.db')
-SECRET_KEY = urandom(24)
+SECRET_KEY = get_secret(path.join(DATA_ROOT, 'secret'))
 
 
 def create_app(debug=False):
