@@ -15,7 +15,9 @@ require.config({
             'static/js/vendor/underscore/underscore-min'],
         restangular: ['//cdnjs.cloudflare.com/ajax/libs/restangular/1.3.1/restangular.min',
             'static/js/vendor/restangular/dist/restangular.min'],
-        showdown: '../vendor/showdown/src/showdown'
+        prettify: '//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify',
+        showdown: '../vendor/showdown/src/showdown',
+        sdCodify: 'blog/showdown-codify'
     },
     shim: {
         angular: {
@@ -35,9 +37,6 @@ require.config({
         },
         restangular: {
             deps: ['angular', 'underscore']
-        },
-        showdown: {
-            exports: 'showdown'
         }
     },
     priority: [

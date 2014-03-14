@@ -2,7 +2,7 @@
  * Blog.js
  */
 
-define(['angular', 'showdown', 'restangular'], function (angular, showdown) {
+define(['angular', 'showdown', 'prettify', 'sdCodify', 'restangular'], function (angular, showdown) {
     'use strict';
 
     return angular.module('myApp.blog', ['restangular'])
@@ -14,7 +14,7 @@ define(['angular', 'showdown', 'restangular'], function (angular, showdown) {
             });
         }])
         .factory('convertMD', function () {
-            var converter = new Showdown.converter();
+            var converter = new Showdown.converter({extensions: ['codify']});
             return function (markdown) {
                 return converter.makeHtml(markdown);
             };
@@ -25,6 +25,10 @@ define(['angular', 'showdown', 'restangular'], function (angular, showdown) {
                 templateUrl: 'static/partials/wdgt_blog_post.html',
                 link: function (scope) {
                     scope.post.html = convertMD(scope.post.content);
+
+                    require(['google-code-prettify'], function (pretty) {
+                        pretty.prettyPrint();
+                    });
                 }
             };
         }]);
