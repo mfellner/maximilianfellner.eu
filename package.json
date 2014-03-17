@@ -1,0 +1,10 @@
+{
+    "description": "node.js requirements for maximilianfellner.eu.",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/mfellner/maximilianfellner.eu.git"
+    },
+    "dependencies": {
+        "less": ">=1.7.0"
+    }
+}
