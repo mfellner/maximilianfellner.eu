@@ -8,7 +8,8 @@ out/
 
 .Python
 *.pyc
-*.db
+data/*.db
+data/secret
 
 doc/
 bin/
