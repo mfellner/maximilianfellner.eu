@@ -22,6 +22,7 @@ define(['angular', 'showdown', 'prettify', 'sdCodify', 'restangular'], function 
         .directive('blogPost', ['$sanitize', 'convertMD', function ($sanitize, convertMD) {
             return {
                 restrict: 'E',
+                replace: true,
                 templateUrl: 'static/partials/wdgt_blog_post.html',
                 link: function (scope) {
                     scope.post.html = convertMD(scope.post.content);

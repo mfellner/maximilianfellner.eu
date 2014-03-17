@@ -72,6 +72,7 @@ define([
         .directive('mainNav', ['$location', function ($location) {
             return {
                 restrict: 'E',
+                replace: true,
                 templateUrl: 'static/partials/wdgt_main_nav.html',
                 link: function (scope, element) {
                     var f = this;
