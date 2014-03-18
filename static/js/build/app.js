@@ -50,7 +50,8 @@ define([
             $routeProvider.otherwise({
                 redirectTo: '/blog'
             });
-
+            // Add #-prefix for SEO.
+            $locationProvider.hashPrefix('!');
             // Try using html5 history API to avoid '#' symbol in URLs.
             if (window.history && window.history.pushState) {
                 $locationProvider.html5Mode(true);
