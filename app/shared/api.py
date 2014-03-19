@@ -28,6 +28,11 @@ def get_favicon():
                                mimetype='image/vnd.microsoft.icon')
 
 
+@shared_bp.route('/robots.txt')
+def get_robots():
+    return send_from_directory(current_app.static_folder, 'robots.txt', mimetype='text/plain')
+
+
 @shared_bp.app_errorhandler(400)  # Bad Request (REST)
 @shared_bp.app_errorhandler(401)  # Unauthorized (REST)
 @shared_bp.app_errorhandler(405)  # Method Not Allowed (REST)
