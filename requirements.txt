@@ -23,7 +23,6 @@ Pygments==1.6
 pylint==1.1.0
 pytz==2014.1
 rjsmin==1.0.9
-selenium==2.40.0
 six==1.6.1
 SQLAlchemy==0.9.3
 webassets==0.9
