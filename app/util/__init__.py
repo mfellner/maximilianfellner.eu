@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from os import urandom, path, chmod
+from subprocess import Popen, PIPE
 
 
 def read_config(config_file):
@@ -41,3 +42,14 @@ def get_secret(secret_file):
 
     with open(secret_file, 'r') as f:
         return f.read()
+
+
+def get_revision():
+    """Returns current git revision."""
+    try:
+        git = Popen(['git', 'rev-parse', '--short', 'HEAD'], stdout=PIPE)
+        revision = git.stdout.read()
+        git.wait()
+        return revision
+    except OSError:
+        return None

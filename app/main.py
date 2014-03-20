@@ -11,7 +11,7 @@ from app.shared.models import db
 from app.shared.api import shared_bp, get_root_index
 from app.blog.api import blog_bp
 from app.admin.api import admin_bp
-from app.util import get_secret
+from app.util import get_secret, get_revision
 
 
 APPLICATION_ROOT = path.dirname(path.abspath(path.join(__file__, pardir)))
@@ -43,6 +43,7 @@ def create_app(debug=False):
 
     # Add a Jinja context processor.
     app.context_processor(current_year)
+    app.context_processor(current_revision)
 
     return app
 
@@ -65,3 +66,8 @@ def register_frontend_routes(app):
 def current_year():
     """Function for template context processor returning the current year."""
     return dict(current_year=time.strftime('%Y'))
+
+
+def current_revision():
+    """Function for template context processor returning the current git revision."""
+    return dict(current_revision=get_revision())
