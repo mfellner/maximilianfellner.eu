@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from os import path, pardir, walk, urandom
+from os import path, walk
 import fnmatch
 
 from flask.ext.assets import Bundle
@@ -8,22 +8,24 @@ from flask.ext.assets import Environment
 from webassets.filter import register_filter
 
 from app.assets.rjs import RJS
-from app.util import load_config
+from app.util import read_config
 
 
-assets_env = None
+assets_env = Environment()
 
 
-def create_environment(app, include_dependencies=True, auto_build=True):
-    """Create and configure webassets."""
-    assets_env = Environment(app)
-    assets_env.auto_build = auto_build
+def init_assets_environment(app, include_dependencies=True, auto_build=True):
+    """Configure Flask webassets."""
+    # Configuration must be set directly on Flask.config because Environment
+    # needs to have a Flask application in the context in order to do that.
+    app.config['ASSETS_AUTO_BUILD'] = auto_build
     # We need a r.js version which supports stdout (https://github.com/jrburke/r.js/pull/620).
-    assets_env.config['RJS_BIN'] = path.join(app.config['STATIC_ROOT'], 'js', 'vendor', 'r.js')
-    assets_env.config['RJS_EXTRA_ARGS'] = load_config(path.join(app.config['DATA_ROOT'], 'r.js.conf'))
+    app.config['RJS_BIN'] = path.join(app.config['STATIC_ROOT'], 'js', 'vendor', 'r.js')
+    app.config['RJS_EXTRA_ARGS'] = read_config(path.join(app.config['DATA_ROOT'], 'r.js.conf'))
+
     register_filter(RJS)
 
-    # 'less' requires lessc and node.js.
+    # 'less' requires lessc and node.js (see package.json).
     css_layout = Bundle(path.join('css', 'less', 'layout.less'),
                         output=path.join('css', 'layout.min.css'),
                         filters='less, cssmin',
@@ -39,7 +41,7 @@ def create_environment(app, include_dependencies=True, auto_build=True):
                     filters='rjs',
                     depends=files(path.join(app.static_folder, 'js', 'build'), '*.js'))
 
-    # Hack: disable dependencies to enable the cache (this is a webassets issue).
+    # Hack: exclude dependencies in order to enable caching (this is a webassets issue).
     if not include_dependencies:
         css_layout.depends = []
         css_errors.depends = []
@@ -49,9 +51,11 @@ def create_environment(app, include_dependencies=True, auto_build=True):
     assets_env.register('css_errors', css_errors)
     assets_env.register('js_rjs', js_rjs)
 
+    assets_env.init_app(app)
+
 
 def files(directory, pattern):
-    """Return file paths matching the pattern."""
+    """Returns file paths matching the pattern."""
     result = []
     for root, dirnames, filenames in walk(directory):
         for filename in fnmatch.filter(filenames, pattern):

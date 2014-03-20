@@ -24,7 +24,7 @@ def create_new_user(kwargs):
     db.session.add(user)
     try:
         db.session.commit()
-    except IntegrityError, err:
+    except IntegrityError as err:
         raise AdminControlException(err.message)
 
     return user

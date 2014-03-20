@@ -6,7 +6,7 @@ from os import path, pardir
 
 from flask import Flask
 
-from app.assets import create_environment
+from app.assets import init_assets_environment
 from app.shared.models import db
 from app.shared.api import shared_bp, get_root_index
 from app.blog.api import blog_bp
@@ -36,7 +36,7 @@ def create_app(debug=False):
     register_frontend_routes(app)
 
     # Configure webassets environment.
-    create_environment(app, debug, debug)
+    init_assets_environment(app, include_dependencies=debug, auto_build=debug)
 
     # Initialize SQLAlchemy connection with the application.
     db.init_app(app)

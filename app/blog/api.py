@@ -6,7 +6,7 @@ from flask.views import MethodView
 from app.shared.api import auth
 from app.shared.models import JSendResponse
 from app.shared.models.serialize import SerializationError
-import app.blog.control as Ctrl
+import app.blog.control as ctrl
 
 blog_bp = Blueprint('blog_bp', __name__)
 
@@ -18,8 +18,8 @@ class PostAPI(MethodView):
     def post(self):
         """Create a new blog post."""
         try:
-            post = Ctrl.create_new_blog_post(request.get_json())
-        except Ctrl.BlogControlError as err:
+            post = ctrl.create_new_blog_post(request.get_json())
+        except ctrl.BlogControlError as err:
             return JSendResponse.new_fail(err.message).jsonify(), 400
 
         return JSendResponse.new_success(post).jsonify(post_format='stripped')
@@ -28,10 +28,10 @@ class PostAPI(MethodView):
         """Get an existing blog post or a list of existing blog posts."""
         try:
             if post_id is not None:
-                post_or_posts = Ctrl.get_blog_post_with_id(post_id)
+                post_or_posts = ctrl.get_blog_post_with_id(post_id)
             else:
-                post_or_posts = Ctrl.get_all_blog_posts()
-        except Ctrl.BlogControlError as err:
+                post_or_posts = ctrl.get_all_blog_posts()
+        except ctrl.BlogControlError as err:
             return JSendResponse.new_fail(err.message).jsonify(), 400
 
         try:
@@ -43,8 +43,8 @@ class PostAPI(MethodView):
     def put(self, post_id):
         """Update an existing blog post."""
         try:
-            post = Ctrl.update_blog_post_with_id(post_id, request.json)
-        except Ctrl.BlogControlError as err:
+            post = ctrl.update_blog_post_with_id(post_id, request.json)
+        except ctrl.BlogControlError as err:
             return JSendResponse.new_fail(err.message).jsonify(), 400
 
         return JSendResponse.new_success(post).jsonify(post_format='stripped')
@@ -52,7 +52,7 @@ class PostAPI(MethodView):
     @auth.require_auth
     def delete(self, post_id):
         """Delete an existing blog post."""
-        Ctrl.delete_blog_post_with_id(post_id)
+        ctrl.delete_blog_post_with_id(post_id)
         return JSendResponse.new_success().jsonify()
 
 

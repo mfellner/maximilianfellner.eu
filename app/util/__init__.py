@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from os import urandom, path
+from os import urandom, path, chmod
 
 
-def load_config(config_file):
-    """Read the lines of a file into a list.
+def read_config(config_file):
+    """
+    Simply loads the lines of a textfile into a list. Lines starting with '#'
+    are ignored. Leading and trailing whitespace is stripped. Useful for
+    reading commandline arguments from a file.
 
     :param config_file: path to the configuration file.
     :type config_file: str
@@ -21,14 +24,20 @@ def load_config(config_file):
     return lst
 
 
-def get_secret(name):
-    """Returns secret from file.
-    Creates a new secret if necessary."""
-    if not path.isfile(name):
-        with open(name, 'w') as f:
+def get_secret(secret_file):
+    """
+    Returns key from the 'secret' file. Creates a new file if necessary.
+
+    :param secret_file: path to the 'secret' file.
+    :type secret_file: str
+
+    """
+    if not path.isfile(secret_file):
+        with open(secret_file, 'w') as f:
             secret = urandom(24)
             f.write(secret)
+            chmod(secret_file, 0o400)
             return secret
 
-    with open(name, 'r') as f:
+    with open(secret_file, 'r') as f:
         return f.read()
