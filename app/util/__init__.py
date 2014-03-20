@@ -44,11 +44,14 @@ def get_secret(secret_file):
         return f.read()
 
 
-def get_revision():
+def get_revision(short=False):
     """Returns current git revision."""
     try:
-        git = Popen(['git', 'rev-parse', '--short', 'HEAD'], stdout=PIPE)
-        revision = git.stdout.read()
+        args = ['git', 'rev-parse', 'HEAD']
+        if short:
+            args.insert(2, '--short')
+        git = Popen(args, stdout=PIPE)
+        revision = git.stdout.read().strip()
         git.wait()
         return revision
     except OSError:

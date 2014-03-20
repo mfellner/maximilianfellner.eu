@@ -53,6 +53,12 @@ require([
 ], function (angular, app) {
     'use strict';
 
+    angular.forEach(document.getElementsByTagName('meta'), function (meta) {
+        if (meta.name === 'version') {
+            app.constant('appRevision', meta.content);
+        }
+    });
+
     angular.element().ready(function () {
         angular.resumeBootstrap([app['name']]);
     });

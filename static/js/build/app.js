@@ -17,34 +17,34 @@ define([
     'use strict';
 
     return angular.module('myApp', [
-            'ngRoute',
-            'ngCookies',
-            'ngSanitize',
-            'myApp.blog',
-            'myApp.about',
-            'myApp.source',
-            'myApp.admin',
-            'http-auth-interceptor',
-            'js-base64'
-        ])
+        'ngRoute',
+        'ngCookies',
+        'ngSanitize',
+        'myApp.blog',
+        'myApp.about',
+        'myApp.source',
+        'myApp.admin',
+        'http-auth-interceptor',
+        'js-base64'
+    ])
         /*
          * App configuration and frontend routes.
          */
-        .config(['$routeProvider', '$locationProvider', 'RestangularProvider', function ($routeProvider, $locationProvider, RestangularProvider) {
+        .config(['$routeProvider', '$locationProvider', 'RestangularProvider', 'appRevision', function ($routeProvider, $locationProvider, RestangularProvider, appRevision) {
             $routeProvider.when('/blog', {
-                templateUrl: 'static/partials/partial_blog.html',
+                templateUrl: 'static/partials/partial_blog.html?v=' + appRevision,
                 controller: 'BlogCtrl'
             });
             $routeProvider.when('/about', {
-                templateUrl: 'static/partials/partial_about.html',
+                templateUrl: 'static/partials/partial_about.html?v=' + appRevision,
                 controller: 'AboutCtrl'
             });
             $routeProvider.when('/source', {
-                templateUrl: 'static/partials/partial_source.html',
+                templateUrl: 'static/partials/partial_source.html?v=' + appRevision,
                 controller: 'SourceCtrl'
             });
             $routeProvider.when('/admin', {
-                templateUrl: 'static/partials/partial_admin.html',
+                templateUrl: 'static/partials/partial_admin.html?v=' + appRevision,
                 controller: 'AdminCtrl'
             });
             $routeProvider.otherwise({
@@ -70,11 +70,11 @@ define([
         /*
          * Main navigation widget.
          */
-        .directive('mainNav', ['$location', function ($location) {
+        .directive('mainNav', ['$location', 'appRevision', function ($location, appRevision) {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'static/partials/wdgt_main_nav.html',
+                templateUrl: 'static/partials/wdgt_main_nav.html?v=' + appRevision,
                 link: function (scope, element) {
                     var f = this;
                     f.setActiveNav = function () {
@@ -91,6 +91,13 @@ define([
                     });
                     f.setActiveNav();
                 }
+            };
+        }])
+        .directive('appHeader', ['appRevision', function (appRevision) {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: 'static/partials/partial_header.html?v=' + appRevision
             };
         }]);
 });

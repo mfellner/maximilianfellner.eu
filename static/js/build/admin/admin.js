@@ -209,12 +209,12 @@ define(['angular', 'restangular', 'bootstrap'], function (angular) {
         /*
          * Panel to create a new blog post or edit an existing one.
          */
-        .directive('blogPostPanel', function () {
+        .directive('blogPostPanel', ['appRevision', function (appRevision) {
             return {
                 restrict: 'E',
                 replace: true,
                 controller: 'BlogPostPanelCtrl',
-                templateUrl: 'static/partials/wdgt_blog_post_panel.html',
+                templateUrl: 'static/partials/wdgt_blog_post_panel.html?v=' + appRevision,
                 scope: {
                     blogPost: '=?',
                     txtTitleButton: '=?'
@@ -229,15 +229,15 @@ define(['angular', 'restangular', 'bootstrap'], function (angular) {
                     });
                 }
             }
-        })
+        }])
         /*
          * Login dialog Bootstrap modal.
          */
-        .directive('loginModal', ['authService', 'Restangular', 'base64', function (authService, Restangular, base64) {
+        .directive('loginModal', ['authService', 'Restangular', 'base64', 'appRevision', function (authService, Restangular, base64, appRevision) {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'static/partials/wdgt_login_modal.html',
+                templateUrl: 'static/partials/wdgt_login_modal.html?v=' + appRevision,
                 link: function (scope, element) {
                     scope.$watch('isAuthorized', function (authorized) {
                         if (authorized === true) {
@@ -310,11 +310,11 @@ define(['angular', 'restangular', 'bootstrap'], function (angular) {
         /*
          * Bootstrap alert.
          */
-        .directive('bsAlert', function () {
+        .directive('bsAlert', ['appRevision', function (appRevision) {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'static/partials/wdgt_alert.html',
+                templateUrl: 'static/partials/wdgt_alert.html?v=' + appRevision,
                 scope: {
                     type: '=',
                     close: '&',
@@ -322,5 +322,5 @@ define(['angular', 'restangular', 'bootstrap'], function (angular) {
                     message: '='
                 }
             };
-        });
+        }]);
 });

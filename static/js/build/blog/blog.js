@@ -19,11 +19,11 @@ define(['angular', 'showdown', 'prettify', 'sdCodify', 'restangular'], function 
                 return converter.makeHtml(markdown);
             };
         })
-        .directive('blogPost', ['$sanitize', 'convertMD', function ($sanitize, convertMD) {
+        .directive('blogPost', ['$sanitize', 'convertMD', 'appRevision', function ($sanitize, convertMD, appRevision) {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'static/partials/wdgt_blog_post.html',
+                templateUrl: 'static/partials/wdgt_blog_post.html?v=' + appRevision,
                 link: function (scope) {
                     scope.post.html = convertMD(scope.post.content);
 
