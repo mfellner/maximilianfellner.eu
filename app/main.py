@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import re
 import time
-from os import path, pardir
 
+from os import path, pardir
 from flask import Flask
 
 from app.assets import init_assets_environment
@@ -11,7 +10,7 @@ from app.shared.models import db
 from app.shared.api import shared_bp, get_root_index
 from app.blog.api import blog_bp
 from app.admin.api import admin_bp
-from app.util import get_secret, get_revision
+from app.util import get_secret, get_revision, get_angular_routes
 
 
 APPLICATION_ROOT = path.dirname(path.abspath(path.join(__file__, pardir)))
@@ -53,14 +52,8 @@ def register_frontend_routes(app):
     AngularJS frontend using Flask's pluggable views."""
     angular_routes = path.join(app.static_folder, 'js', 'build', 'app.js')
 
-    p = re.compile(r"\s+\$routeProvider\.when\('(/.+)'")
-
-    with open(angular_routes) as f:
-        for line in f:
-            m = p.match(line)
-            if m is not None:
-                route = m.groups()[0]
-                app.add_url_rule(route, view_func=get_root_index)
+    for route in get_angular_routes(app.static_folder):
+        app.add_url_rule(route, view_func=get_root_index)
 
 
 def current_year():

@@ -2,7 +2,7 @@
 
 import os
 
-from flask import Blueprint, render_template, send_from_directory, current_app
+from flask import Blueprint, render_template, send_from_directory, current_app as app
 
 from app.shared.models import JSendResponse
 from app.http.auth import HTTPBasicAuth
@@ -24,13 +24,18 @@ def get_root_index():
 
 @shared_bp.route('/favicon.ico')
 def get_favicon():
-    return send_from_directory(os.path.join(current_app.static_folder, 'images'), 'favicon.ico',
+    return send_from_directory(os.path.join(app.static_folder, 'images'), 'favicon.ico',
                                mimetype='image/vnd.microsoft.icon')
 
 
 @shared_bp.route('/robots.txt')
 def get_robots():
-    return send_from_directory(current_app.static_folder, 'robots.txt', mimetype='text/plain')
+    return send_from_directory(app.static_folder, 'robots.txt', mimetype='text/plain')
+
+
+@shared_bp.route('/sitemap.xml')
+def get_sitemap():
+    return send_from_directory(app.static_folder, 'sitemap.xml', mimetype='application/xml')
 
 
 @shared_bp.app_errorhandler(400)  # Bad Request (REST)
