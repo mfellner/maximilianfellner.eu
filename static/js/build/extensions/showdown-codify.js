@@ -1,10 +1,10 @@
-//
-//  Codify Extension for google-code-prettify
-//  ```c printf("Hello!")``` -> <pre class="prettyprint lang-c>printf("Hello!")</pre>
-//
+/*
+ *  Codify Extension for google-code-prettify
+ *  ```c printf("Hello!")``` -> <pre class="prettyprint lang-c>printf("Hello!")</pre>
+ */
 
 (function () {
-    var codify = function (converter) {
+    var codify = function () {
         return [{
             type: 'output',
             filter: function (text) {

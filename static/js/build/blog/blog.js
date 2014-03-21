@@ -2,7 +2,7 @@
  * Blog.js
  */
 
-define(['angular', 'showdown', 'prettify', 'sdCodify', 'restangular'], function (angular, showdown) {
+define(['angular', 'showdown', 'showdownCodify', 'prettify', 'restangular'], function (angular, showdown) {
     'use strict';
 
     return angular.module('myApp.blog', ['restangular'])
@@ -14,7 +14,7 @@ define(['angular', 'showdown', 'prettify', 'sdCodify', 'restangular'], function 
             });
         }])
         .factory('convertMD', function () {
-            var converter = new Showdown.converter({extensions: ['codify']});
+            var converter = new showdown.converter({extensions: ['codify']});
             return function (markdown) {
                 return converter.makeHtml(markdown);
             };

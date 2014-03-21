@@ -3,21 +3,27 @@
  */
 
 require.config({
-    // TODO: provide local fallbacks for all CDN resources.
     paths: {
-        angular: '//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min',
-        angularRoute: '//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min',
-        angularCookies: '//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-cookies.min',
-        angularSanitize: '//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-sanitize.min',
-        jquery: '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min',
-        bootstrap: '//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min',
+        angular: ['//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min',
+            'static/js/vendor/angular/angular.min'],
+        angularRoute: ['//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min',
+            'static/js/vendor/angular/angular-route.min'],
+        angularCookies: ['//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-cookies.min',
+            'static/js/vendor/angular/angular-cookies.min'],
+        angularSanitize: ['//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-sanitize.min',
+            'static/js/vendor/angular/angular-sanitize.min'],
+        jquery: ['//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min',
+            'static/js/vendor/jquery-1.11.0.min'],
+        bootstrap: ['//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min',
+            'static/css/vendor/bootstrap/dist/js/bootstrap.min'],
         underscore: ['//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min',
             'static/js/vendor/underscore/underscore-min'],
         restangular: ['//cdnjs.cloudflare.com/ajax/libs/restangular/1.3.1/restangular.min',
             'static/js/vendor/restangular/dist/restangular.min'],
-        prettify: '//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify',
+        prettify: ['//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify',
+            'static/js/vendor/prettify.min'],
         showdown: '../vendor/showdown/src/showdown',
-        sdCodify: 'blog/showdown-codify'
+        showdownCodify: 'extensions/showdown-codify'
     },
     shim: {
         angular: {
