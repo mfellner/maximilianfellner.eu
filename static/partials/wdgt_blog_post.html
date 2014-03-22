@@ -1,10 +1,11 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="blog-post-content-title">
-            {{post.title}} <small class="pull-right padding-top-sm">{{post.time | date:'MMM d, y'}} by {{post.author}}</small>
-        </h3>
+<div class="blog-post">
+    <div class="blog-heading">
+        <div class="blog-heading-title">
+            <h2>{{post.title}}</h2>
+        </div>
+        <div class="blog-heading-date">
+            <h4>{{post.time | date:'MMM d, y'}} by {{post.author}}</h4>
+        </div>
     </div>
-    <div class="panel-body blog-post-content" ng-bind-html="post.html">
-        Panel content
-    </div>
+    <div class="blog-post-content" ng-bind-html="post.html"></div>
 </div>

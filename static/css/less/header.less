@@ -4,7 +4,14 @@
 @import "variables";
 
 #header-row {
-  padding: 1em 0;
+  @header-margin-top: 1.0em;
+  @header-margin-bottom: 2.0em;
+  padding-top: ceil((@header-margin-top * 0.5));
+  padding-bottom: ceil((@header-margin-bottom * 0.5));
+  @media (min-width: @screen-sm-min) {
+    padding-top: @header-margin-top;
+    padding-bottom: @header-margin-bottom;
+  }
 }
 
 #header-logo img {

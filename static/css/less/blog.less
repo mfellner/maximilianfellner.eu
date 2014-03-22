@@ -1,42 +1,69 @@
 @import "../vendor/bootstrap/less/bootstrap";
 @import "../vendor/font-awesome/less/font-awesome";
 @import "variables";
+@import "mixins";
 
-@blog-heading-size-base: 22px;
+@blog-margin-bottom: 2em;
+@blog-heading-padding-bottom: 1.5em;
+@blog-post-heading-size-base: 22px;
+
+.blog-post {
+  font-size: @font-size-blog;
+  margin-bottom: @blog-margin-bottom;
+}
+
+.blog-heading {
+  .make-row();
+  .make-row-vcenter();
+  padding-bottom: @blog-heading-padding-bottom;
+}
+
+.blog-heading-title {
+  .make-sm-column(9);
+  .make-col-vcenter();
+}
+
+.blog-heading-date {
+  .make-sm-column(3);
+  .make-col-vcenter();
+  .make-text-right();
+  .make-padding-top(10px, 0px, @screen-xs-max);
+  > h1, h2, h3, h4, h5, h6 {
+    color: @gray-light;
+  }
+}
+
+.blog-heading {
+  > h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+  }
+}
 
 .blog-post-content-title {
   margin: 0;
 }
 
-.blog-post-content h1,
-.blog-post-content h2,
-.blog-post-content h3,
-.blog-post-content h4,
-.blog-post-content h5,
-.blog-post-content h6 {
-  margin-top: 0;
-}
-
-.blog-post-content h1 {
-  font-size: @blog-heading-size-base;
-}
-
-.blog-post-content h2 {
-  font-size: floor(@blog-heading-size-base * 0.85);
-}
-
-.blog-post-content h3 {
-  font-size: floor(@blog-heading-size-base * 0.70);
-}
-
-.blog-post-content h4 {
-  font-size: floor(@blog-heading-size-base * 0.55);
-}
-
-.blog-post-content h5 {
-  font-size: floor(@blog-heading-size-base * 0.40);
-}
-
-.blog-post-content h6 {
-  font-size: floor(@blog-heading-size-base * 0.25);
+.blog-post-content {
+  > h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+  }
+  > h1 {
+    font-size: @blog-post-heading-size-base;
+  }
+  > h2 {
+    font-size: floor(@blog-post-heading-size-base * 0.85);
+  }
+  > h3 {
+    font-size: floor(@blog-post-heading-size-base * 0.70);
+  }
+  > h4 {
+    font-size: floor(@blog-post-heading-size-base * 0.55);
+  }
+  > h5 {
+    font-size: floor(@blog-post-heading-size-base * 0.40);
+  }
+  > h6 {
+    font-size: floor(@blog-post-heading-size-base * 0.25);
+  }
 }

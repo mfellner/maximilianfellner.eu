@@ -1,0 +1,42 @@
+@import "../vendor/bootstrap/less/bootstrap";
+
+/* General styles for the layout template
+----------------------------------------------------------------------------- */
+
+.text-spaced {
+  letter-spacing: 0.1em;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-sm-right {
+  .make-text-right(@screen-sm-min);
+}
+
+.make-text-right(@screen-min: @screen-sm-min) {
+  @media (min-width: @screen-min) {
+    .text-right();
+  }
+}
+
+.make-row-vcenter(@screen-min: @screen-sm-min) {
+  @media (min-width: @screen-min) {
+    display: table !important;
+  }
+}
+
+.make-col-vcenter(@screen-min: @screen-sm-min) {
+  @media (min-width: @screen-min) {
+    display: table-cell;
+    vertical-align: middle;
+    float: none !important;
+  }
+}
+
+.make-padding-top(@padding, @screen-min: @screen-sm-min, @screen-max: 9000px) {
+  @media (min-width: @screen-min) and (max-width: @screen-max) {
+    padding-top: @padding;
+  }
+}
