@@ -1,58 +1,76 @@
 @import "../vendor/bootstrap/less/bootstrap";
-@import "../vendor/font-awesome/less/font-awesome";
-@import "../vendor/font-awesome/src/assets/less/site/lazy";
 @import "variables";
+@import "mixins";
 
-#header-row {
-  @header-margin-top: 1.0em;
-  @header-margin-bottom: 2.0em;
-  padding-top: ceil((@header-margin-top * 0.5));
-  padding-bottom: ceil((@header-margin-bottom * 0.5));
-  @media (min-width: @screen-sm-min) {
-    padding-top: @header-margin-top;
-    padding-bottom: @header-margin-bottom;
+/* Header styles
+----------------------------------------------------------------------------- */
+
+@header-spacing-bottom: @grid-gutter-width;
+
+#row-app-header {
+  .make-row();
+  @media (max-width: @screen-sm-max) {
+    margin-top: -@content-padding;
+    padding-top: @content-padding;
+    padding-bottom: 0;
+    margin-bottom: floor((@header-spacing-bottom / 2));
+    background-color: @sidebar-color;
+    border-bottom: 1px solid darken(@sidebar-color, 10%);
   }
 }
 
-#header-logo img {
-  .center-block();
-  max-width: 10em;
-  @media (min-width: @screen-sm-min) {
-    max-width: 90%;
+#col-header-title {
+  .make-lg-column(12);
+
+  @h-size-base: floor((@font-size-base * 3.5));
+
+  > h1 {
+    margin: 0;
+    color: @color-scheme-red-lighter;
+    line-height: 1;
+    font-size: @h-size-base;
+    .text-uppercase();
+    @media (min-width: @screen-md-min) {
+      font-size: floor((@h-size-base * 1.1));
+    }
+    @media (min-width: @screen-lg-min) {
+      font-size: floor((@h-size-base * 1.4));
+    }
+    > small {
+      .text-normalcase();
+      color: @gray-light;
+      font-size: floor((@h-size-base * 0.5));
+      @media (min-width: @screen-md-min) {
+        font-size: floor((@h-size-base * 0.6));
+      }
+      @media (min-width: @screen-lg-min) {
+        font-size: floor((@h-size-base * 0.7));
+      }
+      @media (max-width: @screen-sm-max) {
+        color: @gray;
+      }
+    }
+  }
+  @media (max-width: @screen-sm-max) {
+    text-align: center;
+  }
+  > ul > li {
+    display: inline-block;
+    .make-nav-links();
   }
 }
 
-#header-title {
-  text-align: center;
-  padding-top: 5px;
-  @media (min-width: @screen-sm-min) {
-    text-align: left;
-    padding-top: 5px;
-  }
-  @media (min-width: @screen-md-min) {
-    padding-top: 15px;
-  }
-  @media (min-width: @screen-lg-min) {
-    padding-top: 30px;
-  }
+#hr-app-header {
+  border-color: @gray-light;
+  text-align: left;
+  margin-left: 0;
+  margin-right: auto;
+  margin-top: floor((@header-spacing-bottom / 2));
+  margin-bottom: @header-spacing-bottom;
 }
 
-#header-title h1 {
-  color: @brand-primary;
-  margin: 0;
-  padding: 0;
-  @media (min-width: @screen-sm-min) {
-    font-size: floor(@font-size-h1 * 1.4);
-    letter-spacing: 0.1em;
-  }
-}
-
-#header-title h2 {
-  color: @gray-darker;
-  margin: 10px 0 0 0;
-  padding: 0;
-  letter-spacing: 0.1em;
-  @media (min-width: @screen-sm-min) {
-    letter-spacing: 0.2em;
-  }
+#nav-app-header {
+  .make-row();
+  margin-bottom: -@content-padding;
+  background-color: lighten(@sidebar-color, 5%);
 }

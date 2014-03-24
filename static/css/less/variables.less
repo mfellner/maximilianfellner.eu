@@ -39,9 +39,18 @@
 
 @body-bg: @white;
 @text-color: @gray-darker;
+@text-color-footer: @gray-darker;
 
 @link-color: @brand-primary;
 @link-color-hover: @brand-secondary;
+
+@sidebar-color: @gray-lighter;
+@footer-color: @sidebar-color;
+
+@content-padding: (@grid-gutter-width / 2);
+@sidebar-logo-size: 240px;
+
+@col-right-padding: (@content-padding * 2);
 
 /* Typography
 ----------------------------------------------------------------------------- */
@@ -55,8 +64,4 @@
 
 @font-size-text: ceil((@font-size-base * 1.15));
 @font-size-blog: @font-size-text;
-
-/* Dimensions
------------------------------------------------------------------------------ */
-
-@footer-height: 46px;
+@font-size-footer: @font-size-base;

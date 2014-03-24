@@ -1,4 +1,5 @@
 @import "../vendor/bootstrap/less/bootstrap";
+@import "variables";
 
 /* General styles for the layout template
 ----------------------------------------------------------------------------- */
@@ -11,23 +12,50 @@
   text-transform: uppercase;
 }
 
-.text-sm-right {
-  .make-text-right(@screen-sm-min);
+.text-normalcase {
+  text-transform: none;
 }
 
-.make-text-right(@screen-min: @screen-sm-min) {
+.vcenter-wrap {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+
+.vcenter {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.text-md-right {
+  .make-text-min-right(@screen-sm-min);
+}
+
+.make-text-right() {
+  .make-text-min-right();
+}
+
+.make-text-min-right(@screen-min: @screen-md-min) {
   @media (min-width: @screen-min) {
     .text-right();
   }
 }
 
-.make-row-vcenter(@screen-min: @screen-sm-min) {
+.make-row-vcenter() {
+  .make-row-min-vcenter();
+}
+
+.make-row-min-vcenter(@screen-min: @screen-md-min) {
   @media (min-width: @screen-min) {
     display: table !important;
   }
 }
 
-.make-col-vcenter(@screen-min: @screen-sm-min) {
+.make-col-vcenter(@screen-min: @screen-md-min) {
+  .make-col-min-vcenter();
+}
+
+.make-col-min-vcenter(@screen-min: @screen-md-min) {
   @media (min-width: @screen-min) {
     display: table-cell;
     vertical-align: middle;
@@ -35,8 +63,63 @@
   }
 }
 
-.make-padding-top(@padding, @screen-min: @screen-sm-min, @screen-max: 9000px) {
+.make-padding-top(@padding) {
+  .make-padding-min-max-top(@padding);
+}
+
+.make-padding-min-max-top(@padding, @screen-min: @screen-md-min, @screen-max: 9000px) {
   @media (min-width: @screen-min) and (max-width: @screen-max) {
     padding-top: @padding;
   }
+}
+
+.col-md-12-lg-11 {
+  .make-md-lg-column(12, 11);
+}
+
+.make-md-lg-column(@size-md: 12, @size-lg: 11) {
+  .make-md-column(@size-md);
+  .make-lg-column(@size-lg);
+}
+
+.make-wrap-footer(@height: @footer-height) {
+  display: block;
+  margin: 0 auto -@height;
+  padding: 0 0 @height;
+  min-height: 100%;
+  height: auto;
+}
+
+.make-footer(@height: @footer-height, @font-size: @font-size-small) {
+  display: block;
+  height: @height;
+  font-size: @font-size;
+  color: @text-color-footer;
+}
+
+.make-footer-color(@height: @footer-height) {
+  .make-footer(@height);
+  border-top: 1px solid darken(@footer-color, 10%);
+  background-color: @footer-color;
+}
+
+.make-nav-links(@clr-default: @gray-darker, @clr-highlight: @color-scheme-red-lighter) {
+  > a {
+    color: @clr-default;
+    &:link {
+      color: @clr-default;
+      border-bottom: solid 2px transparent;
+    }
+    &:visited {
+      color: @clr-default;
+    }
+    &:hover {
+      color: @clr-highlight;
+    }
+  }
+  &.active > a {
+    color: @clr-highlight;
+    border-bottom: solid 2px @clr-highlight;
+  }
+  color: @clr-default;
 }

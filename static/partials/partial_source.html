@@ -1,12 +1,11 @@
-<app-header></app-header>
-
-<div id="main-row" class="row">
-    <main-nav></main-nav>
-    <div id="main-content" class="col-sm-10">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3 class="margin-top-none">Source</h3>
-
+<div class="row">
+    <!-- sidebar min-width: @screen-md-min -->
+    <sidebar min-width="992"></sidebar>
+    <div class="col-right">
+        <app-header></app-header>
+        <div class="row-app-content">
+            <div class="col-app-content">
+                <h2 class="margin-top-none">Source</h2>
                 <p>This website is built mostly on <a href="//angularjs.org">AngularJS</a> and <a href="//flask.pocoo.org">Flask</a>.</p>
                 <p>You can find the complete source code of both the frontend and the backend on <a href="//github.com/mfellner/maximilianfellner.eu">Github</a>.</p>
             </div>

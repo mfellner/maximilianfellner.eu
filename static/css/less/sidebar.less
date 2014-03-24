@@ -1,0 +1,73 @@
+@import "../vendor/bootstrap/less/bootstrap";
+@import "variables";
+@import "mixins";
+
+/* Sidebar visible at @screen-md-min+.
+----------------------------------------------------------------------------- */
+
+#col-sidebar {
+  display: none;
+  @media (min-width: @screen-md-min) {
+    .make-md-column(2);
+    background-color: @sidebar-color;
+    padding-top: @content-padding;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto; // Scrollable contents if viewport is shorter than content.
+    border-right: 1px solid darken(@sidebar-color, 10%);
+  }
+}
+
+#col-sidebar img {
+  .img-responsive();
+  max-width: 90%;
+  margin: 0 auto;
+  @media (max-width: @screen-sm-max) {
+    max-width: 100%;
+  }
+  @media (max-width: @screen-xs-max) {
+    max-width: (@sidebar-logo-size / 2);
+  }
+}
+
+#col-sidebar ul {
+  .nav-stacked();
+  > li {
+    + li {
+      margin-top: 8px;
+    }
+    .make-nav-links();
+  }
+  font-size: @font-size-text;
+}
+
+@sb-footer-height-md: 60px;
+@sb-footer-height-lg: 52px;
+
+#sb-wrap-footer {
+  @media (min-width: @screen-md-min) {
+    .make-wrap-footer(@sb-footer-height-md);
+  }
+  @media (min-width: @screen-lg-min) {
+    .make-wrap-footer(@sb-footer-height-lg);
+  }
+}
+
+#sb-footer {
+  @media (min-width: @screen-md-min) {
+    .make-footer(@sb-footer-height-md);
+  }
+  @media (min-width: @screen-lg-min) {
+    .make-footer(@sb-footer-height-lg);
+  }
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  text-align: center;
+}

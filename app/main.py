@@ -50,8 +50,6 @@ def create_app(debug=False):
 def register_frontend_routes(app):
     """Hack: add URL rules for all routes configured in the
     AngularJS frontend using Flask's pluggable views."""
-    angular_routes = path.join(app.static_folder, 'js', 'build', 'app.js')
-
     for route in get_angular_routes(app.static_folder):
         app.add_url_rule(route, view_func=get_root_index)
 

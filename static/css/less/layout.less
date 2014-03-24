@@ -1,109 +1,54 @@
 @import "../vendor/bootstrap/less/bootstrap";
 @import "../vendor/font-awesome/less/font-awesome";
-@import "../vendor/font-awesome/src/assets/less/site/lazy";
 @import "variables";
 @import "prettify";
+@import "sidebar";
 @import "mixins";
 @import "header";
 @import "admin";
 @import "blog";
 
-/* Sticky footer styles
+/* Main styles of the website. Full layout at >= @screen-md-min.
+ *
+ *  col-s       col-r         <-- sidebar & col-right
+ * +-----+-----------------+
+ * |     |    row, col     |  <-- header
+ * |     +-----------------+
+ * |     |                 |
+ * |     |                 |
+ * |     |    row, col     | <-- app-content
+ * |     |                 |
+ * |     |                 |
+ * +-----+-----------------+
+ *
 ----------------------------------------------------------------------------- */
 
 html, body {
   height: 100%;
+  background-color: @white;
 }
 
-#wrap-footer {
-  @media (max-width: @screen-sm-min - 1) {
-    margin: 0 auto floor((-@footer-height * 1.5));
-    padding: 0 0 floor((@footer-height * 1.5));
+// (header defined in header.less)
+
+.col-right {
+  .make-md-column-offset(2);
+  .make-md-column(10);
+  @media (min-width: @screen-md-min) {
+    padding-left: @col-right-padding;
   }
-  @media (min-width: @screen-sm-min) {
-    margin: 0 auto -@footer-height;
-    padding: 0 0 @footer-height;
-  }
-  min-height: 100%;
-  height: auto;
+  padding-top: @content-padding;
 }
 
-#footer {
-  @media (max-width: @screen-sm-min - 1) {
-    height: floor((@footer-height * 1.5));
-  }
-  @media (min-width: @screen-sm-min) {
-    height: @footer-height;
-  }
-  background-color: @gray-darker;
-  color: @gray-lighter;
+.row-app-content {
+  .make-row();
 }
 
-#footer .row {
-  @media (min-width: @screen-sm-min) {
-    height: @footer-height;
-  }
-  > div > p {
-    padding-top: ceil((@footer-height * 0.25));
-    margin-bottom: 0;
-  }
-
+.col-app-content {
+  .make-md-lg-column();
 }
-
-#footer-content p {
-  display: table-cell;
-  vertical-align: middle;
-  font-size: small;
-  margin: 0;
-}
-
-/* Main layout of the website
------------------------------------------------------------------------------ */
 
 hr {
   border-color: @gray-darker;
-}
-
-#main-navigation {
-  font-size: @font-size-text;
-  padding-bottom: 15px;
-  // Allow list to center horizontally:
-  display: table;
-  margin: 0 auto;
-}
-
-#main-navigation ul {
-  @media (max-width: (@screen-sm-min - 1)) {
-    > li {
-      float: left;
-      + li {
-        margin-left: 2px;
-      }
-    }
-  }
-  @media (min-width: @screen-sm-min) {
-    .nav-stacked();
-    > li {
-      + li {
-        margin-top: 8px;
-      }
-    }
-  }
-  > li {
-    color: @gray-darker;
-    > a {
-      color: @gray-darker;
-      border-bottom: solid 2px @white;
-      &:hover {
-        background-color: transparent;
-        color: @color-scheme-red-lighter;
-      }
-    }
-    &.active > a {
-      color: @color-scheme-red-lighter;
-      border-bottom: solid 2px @color-scheme-red-lighter;
-    }
-  }
 }
 
 ::selection {
@@ -144,4 +89,22 @@ pre code {
   overflow-wrap: normal;
   word-wrap: normal;
   white-space: pre;
+}
+
+/* Sticky footer at < @screen-md-min.
+----------------------------------------------------------------------------- */
+
+@xs-footer-height: 46px;
+
+#xs-wrap-footer {
+  @media (max-width: @screen-sm-max) {
+    .make-wrap-footer(@xs-footer-height);
+  }
+}
+
+#xs-footer {
+  display: none;
+  @media (max-width: @screen-sm-max) {
+    .make-footer-color(@xs-footer-height);
+  }
 }

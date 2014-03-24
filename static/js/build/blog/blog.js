@@ -6,12 +6,16 @@ define(['angular', 'showdown', 'showdownCodify', 'prettify', 'restangular'], fun
     'use strict';
 
     return angular.module('myApp.blog', ['restangular'])
-        .controller('BlogCtrl', ['$rootScope', '$scope', 'Restangular', function ($rootScope, $scope, Restangular) {
+        .controller('BlogCtrl', ['$rootScope', '$scope', '$window', 'Restangular', function ($rootScope, $scope, $window, Restangular) {
             $rootScope.title = 'Maximilian Fellner - Blog';
 
             Restangular.all('blog/posts').getList({format: 'full'}).then(function (posts) {
                 $scope.allBlogPosts = posts;
             });
+            $scope.windowWidth = function() {
+                console.log('window width: ' + $($window).width());
+                return $($window).width();
+            };
         }])
         .factory('convertMD', function () {
             var converter = new showdown.converter({extensions: ['codify']});

@@ -3,11 +3,27 @@
 @import "variables";
 @import "mixins";
 
+/* Blog styles
+ *
+ *
+ * +----------------+------+
+ * |     title      | date |  <-- heading
+ * |-----------------------+
+ * |                       |
+ * |                       |
+ * |        content        |  <-- content
+ * |                       |
+ * |                       |
+ * +-----------------------+
+ *
+----------------------------------------------------------------------------- */
+
 @blog-margin-bottom: 2em;
 @blog-heading-padding-bottom: 1.5em;
 @blog-post-heading-size-base: 22px;
 
-.blog-post {
+.col-blog-post {
+  .make-md-lg-column();
   font-size: @font-size-blog;
   margin-bottom: @blog-margin-bottom;
 }
@@ -15,6 +31,10 @@
 .blog-heading {
   .make-row();
   .make-row-vcenter();
+  > h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+  }
   padding-bottom: @blog-heading-padding-bottom;
 }
 
@@ -27,21 +47,10 @@
   .make-sm-column(3);
   .make-col-vcenter();
   .make-text-right();
-  .make-padding-top(10px, 0px, @screen-xs-max);
+  .make-padding-min-max-top(10px, 0px, @screen-xs-max);
   > h1, h2, h3, h4, h5, h6 {
     color: @gray-light;
   }
-}
-
-.blog-heading {
-  > h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    padding: 0;
-  }
-}
-
-.blog-post-content-title {
-  margin: 0;
 }
 
 .blog-post-content {

@@ -27,7 +27,8 @@ require.config({
     },
     shim: {
         angular: {
-            exports: 'angular'
+            exports: 'angular',
+            deps: ['jquery']
         },
         angularRoute: {
             deps: ['angular']
