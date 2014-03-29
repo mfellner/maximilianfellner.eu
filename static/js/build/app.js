@@ -32,19 +32,23 @@ define([
          */
         .config(['$routeProvider', '$locationProvider', 'RestangularProvider', 'appRevision', function ($routeProvider, $locationProvider, RestangularProvider, appRevision) {
             $routeProvider.when('/blog', {
-                templateUrl: 'static/partials/partial_blog.html?v=' + appRevision,
+                templateUrl: '/static/partials/partial_blog.html?v=' + appRevision,
+                controller: 'BlogCtrl'
+            });
+            $routeProvider.when('/blog/:blogpost', {
+                templateUrl: '/static/partials/partial_blog_post.html?v=' + appRevision,
                 controller: 'BlogCtrl'
             });
             $routeProvider.when('/about', {
-                templateUrl: 'static/partials/partial_about.html?v=' + appRevision,
+                templateUrl: '/static/partials/partial_about.html?v=' + appRevision,
                 controller: 'AboutCtrl'
             });
             $routeProvider.when('/source', {
-                templateUrl: 'static/partials/partial_source.html?v=' + appRevision,
+                templateUrl: '/static/partials/partial_source.html?v=' + appRevision,
                 controller: 'SourceCtrl'
             });
             $routeProvider.when('/admin', {
-                templateUrl: 'static/partials/partial_admin.html?v=' + appRevision,
+                templateUrl: '/static/partials/partial_admin.html?v=' + appRevision,
                 controller: 'AdminCtrl'
             });
             $routeProvider.otherwise({
@@ -66,6 +70,7 @@ define([
                 newResponse.status = response.status;
                 return newResponse;
             });
+            RestangularProvider.setDefaultHttpFields({cache: true});
         }])
         /*
          * Main sidebar widget.
@@ -74,13 +79,14 @@ define([
             function ($compile, $http, $templateCache, $window, appRevision) {
 
                 var getTemplate = function (process) {
-                    var templateUrl = 'static/partials/wdgt_sidebar.html?v=' + appRevision;
+                    var templateUrl = '/static/partials/wdgt_sidebar.html?v=' + appRevision;
                     $http.get(templateUrl, {cache: $templateCache}).success(function (html) {
                         process(html);
                     });
                 };
 
                 var link = function (scope, element) {
+                    scope.revisionfull = appRevision;
                     scope.revision = appRevision.substring(0, 7);
                     scope.year = new Date().getFullYear();
                     scope.windowWidth = $($window).width();
@@ -144,11 +150,9 @@ define([
                             }
                         });
                     };
-
                     scope.$on('$routeChangeSuccess', function () {
                         setActiveNav();
                     });
-
                     setActiveNav();
                 }
             };
@@ -160,7 +164,16 @@ define([
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'static/partials/partial_header.html?v=' + appRevision
+                templateUrl: '/static/partials/partial_header.html?v=' + appRevision,
+                link: function (scope) {
+                    scope.revisionfull = appRevision;
+                }
             };
-        }]);
+        }])
+        .filter('urltext', function () {
+            return function (text) {
+                text = text || '';
+                return text.trim().toLowerCase().split(' ').join('-');
+            };
+        });
 });

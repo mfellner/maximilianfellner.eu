@@ -18,7 +18,7 @@ def unauthorized():
 
 
 @shared_bp.route('/')
-def get_root_index():
+def get_root_index(**kargs):
     return render_template('layout.html')
 
 

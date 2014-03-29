@@ -214,7 +214,7 @@ define(['angular', 'restangular', 'bootstrap'], function (angular) {
                 restrict: 'E',
                 replace: true,
                 controller: 'BlogPostPanelCtrl',
-                templateUrl: 'static/partials/wdgt_blog_post_panel.html?v=' + appRevision,
+                templateUrl: '/static/partials/wdgt_blog_post_panel.html?v=' + appRevision,
                 scope: {
                     blogPost: '=?',
                     txtTitleButton: '=?'
@@ -237,7 +237,7 @@ define(['angular', 'restangular', 'bootstrap'], function (angular) {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'static/partials/wdgt_login_modal.html?v=' + appRevision,
+                templateUrl: '/static/partials/wdgt_login_modal.html?v=' + appRevision,
                 link: function (scope, element) {
                     scope.$watch('isAuthorized', function (authorized) {
                         if (authorized === true) {
@@ -314,7 +314,7 @@ define(['angular', 'restangular', 'bootstrap'], function (angular) {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'static/partials/wdgt_alert.html?v=' + appRevision,
+                templateUrl: '/static/partials/wdgt_alert.html?v=' + appRevision,
                 scope: {
                     type: '=',
                     close: '&',

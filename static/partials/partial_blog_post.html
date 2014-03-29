@@ -1,0 +1,21 @@
+<div class="row">
+    <!-- sidebar min-width: @screen-md-min -->
+    <sidebar min-width="992"></sidebar>
+    <div class="col-right">
+        <app-header></app-header>
+        <div class="row-app-content">
+            <blog-post post="getBlogPost()"></blog-post>
+        </div>
+        <div class="row">
+            <div id="disqus_thread" class="col-md-12 col-lg-11"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'maximilianfellner';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        </div>
+    </div>
+</div>

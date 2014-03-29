@@ -64,13 +64,14 @@ def get_revision(short=False):
 
 def get_angular_routes(folder, routes_file=path.join('js', 'build', 'app.js')):
     """Parse and yield route URLs from AngularJS frontend."""
-    pattern = re.compile(r"\s+\$routeProvider\.when\('(/.+)'")
+    route_pattern = re.compile(r"\s+\$routeProvider\.when\('(/.+)'")
 
     with open(path.join(folder, routes_file)) as f:
         for line in f:
-            m = pattern.match(line)
+            m = route_pattern.match(line)
             if m is not None:
-                yield m.groups()[0]
+                route = re.sub(r':(\w+)', r'<\1>', m.groups()[0])
+                yield route
 
 
 def generate_sitemap(folder, base_url='maximilianfellner.eu', change_freq='daily'):

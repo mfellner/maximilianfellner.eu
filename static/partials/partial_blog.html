@@ -4,7 +4,7 @@
     <div class="col-right">
         <app-header></app-header>
         <div class="row-app-content">
-            <blog-post ng-repeat="post in allBlogPosts"></blog-post>
+            <blog-post ng-repeat="post in getBlogPosts()" post="post"></blog-post>
         </div>
     </div>
 </div>
