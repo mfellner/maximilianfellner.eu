@@ -8,6 +8,7 @@ out/
 
 .Python
 *.pyc
+gunicorn.py
 data/*.db
 data/secret
 
